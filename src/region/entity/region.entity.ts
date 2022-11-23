@@ -5,7 +5,7 @@ import { City } from './city.entity';
 export class Region {
   @PrimaryGeneratedColumn()
   id:number;
-  @Column()
+  @Column({unique:true})
   title:string;
   @OneToMany(()=>City,city=>city)
   cities:City[]
