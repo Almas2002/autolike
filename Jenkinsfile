@@ -7,9 +7,9 @@ node('autolike'){
     }
     stage('build with docker') {
 
-                               docker-compose stop
-                               docker-compose build
-                               docker-compose up -d
+                              sh 'docker compose stop'
+                              sh 'docker compose build'
+                              sh 'docker compose up -d'
 
                 }
 }
