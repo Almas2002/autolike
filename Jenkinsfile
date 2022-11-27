@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-                sh echo "Hello"
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']],
+                extensions: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/Almas2002/autolike.git']]])
             }
         }
     }
