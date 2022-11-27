@@ -1,4 +1,4 @@
-node('slaveNode1'){
+node('autolike'){
     stage('Build') {
         steps {
                             checkout([$class: 'GitSCM', branches: [[name: '*/main']],
