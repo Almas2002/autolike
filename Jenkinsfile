@@ -5,7 +5,7 @@ node('autolike'){
                             extensions: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/Almas2002/autolike.git']]])
 
     }
-    stage('docker') {
+    stage('build with docker') {
 
                                docker compose stop
                                docker compose build
