@@ -7,5 +7,10 @@ pipeline {
                 extensions: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/Almas2002/autolike.git']]])
             }
         }
+        stage('hello') {
+                    steps {
+                       echo "Almas2002"
+                    }
+                }
     }
 }
