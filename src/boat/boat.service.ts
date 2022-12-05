@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Boat } from './boat.entity';
 import { Repository } from 'typeorm';
-import { BooleanArray } from 'aws-sdk/clients/rdsdataservice';
 import { BoatType } from './boat-type.entity';
 import { CreateBoatDto } from './dto/boat.dto';
 import { ProfileService } from '../profile/profile.service';
@@ -13,7 +12,6 @@ import { CityNotFoundException } from '../region/exception/city.exception';
 import { FileService, TypeofEntityEnum } from '../file/file.service';
 import { Images } from '../announcment/entities/images.entity';
 import { ImageNotFoundException } from '../announcment/exception/image.exception';
-import { MototehniceNotFoundException } from '../mototehnika/exceptions/mototehnice.exception';
 import { BoatNotFoundException } from './boat.exception';
 
 @Injectable()
