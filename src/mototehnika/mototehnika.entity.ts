@@ -65,7 +65,7 @@ export class Mototehnics {
   @Column({ enum: Status, default: Status.NEW })
   status: Status;
 
-  @OneToMany(() => Comments, comment => comment.moto)
+  @OneToMany(() => Comments, comment => comment.mototehnic)
   comments: Comments[];
 
   @Column()

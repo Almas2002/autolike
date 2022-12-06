@@ -16,6 +16,7 @@ import {
 import { Profile } from '../profile/profile.entity';
 import { Like } from '../like/like.entity';
 import { Images } from '../announcment/entities/images.entity';
+import { Comments } from '../comments/comments.entity';
 
 
 @Entity()
@@ -51,4 +52,7 @@ export class Spare {
   images: Images[];
   @CreateDateColumn()
   createdAt: Date;
+
+  @OneToMany(()=>Comments,comment=>comment.spare,{onDelete:"CASCADE"})
+  comments:Comments []
 }

@@ -35,4 +35,8 @@ export class About  {
   state:StatementEnum
   @OneToOne(() => Car, announcement => announcement.about)
   car: Car;
+
+
+  @Column({default:false})
+  customsClearance:boolean
 }

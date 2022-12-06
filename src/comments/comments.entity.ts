@@ -3,6 +3,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'ty
 import { Car } from '../announcment/entities/car/car.entity';
 import { Mototehnics } from '../mototehnika/mototehnika.entity';
 import { Boat } from '../boat/boat.entity';
+import { Spare } from '../spares/spare.entity';
 
 @Entity()
 export class Comments {
@@ -20,8 +21,9 @@ export class Comments {
   subComments: Comments[];
 
   @ManyToOne(() => Mototehnics, object => object.comments, { onDelete: 'CASCADE' })
-  moto: Mototehnics;
-
-  @ManyToOne(() => Boat, boat => boat.comments)
+  mototehnic: Mototehnics;
+  @ManyToOne(() => Spare, object => object.comments, { onDelete: 'CASCADE' })
+  spare:Spare;
+  @ManyToOne(() => Boat, boat => boat.comments,{onDelete:"CASCADE"})
   boat: Boat;
 }

@@ -51,6 +51,9 @@ export class CreateAnnouncementDto{
   @IsEnum(DriveIUnitEnum)
   @IsNotEmpty()
   driveUnit: DriveIUnitEnum;
+  @ApiProperty({example:true,description:"растаможка",required:false})
+  //разтарможка
+  customsClearance:boolean
 }
 
 export class FilterAnnouncementQuery extends Filter{

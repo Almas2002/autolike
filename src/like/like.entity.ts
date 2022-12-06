@@ -26,4 +26,5 @@ export class Like {
 
   @ManyToOne(() => Boat, boat => boat.likes)
     boat: Boat;
-  }
+
+}
