@@ -116,6 +116,8 @@ export class AnnouncementService {
       .addSelect('about.steeringWheel', 'steeringWheel')
       .addSelect('marka.title', 'marka')
       .addSelect('city.title', 'city')
+      .addSelect('body.title', 'body')
+      .addSelect('about.volume', 'volume')
       .addSelect('COUNT(images.id)', 'countImages')
       .addSelect('transmission.title', 'transmission')
       .leftJoin('announcement.model', 'model')
@@ -126,14 +128,15 @@ export class AnnouncementService {
       .leftJoin('announcement.marka', 'marka')
       .leftJoin('announcement.likes', 'likes')
       .leftJoin('announcement.city', 'city')
+      .leftJoin('announcement.body', 'body')
       .leftJoin('likes.profile', 'profile', `likes.profileId = ${profile.id}`)
       .addSelect('COUNT(profile) as profileLIke')
       .orderBy('announcement.createdAt', 'DESC')
       .groupBy('model.id').addGroupBy('avatar.id').addGroupBy('about.id')
       .addGroupBy('marka.id').addGroupBy('price').addGroupBy('announcement.id')
-      .addGroupBy('city').addGroupBy('announcement.createdAt').addGroupBy('transmission.title');
-    query.limit(limit)
-    query.offset(offset)
+      .addGroupBy('city').addGroupBy('announcement.createdAt').addGroupBy('transmission.title').addGroupBy('body.title');
+    query.limit(limit);
+    query.offset(offset);
     if (dto?.models) {
       const modelIds = dto.models.split(',');
       query.andWhere(`announcement.modelId IN (:...modelIds)`, { modelIds });
