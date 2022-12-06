@@ -5,6 +5,11 @@ import { MyValidationPipe } from './pipes/MyValidation.pipe';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin:["*"],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    //credentials:true
+  })
   const config = new DocumentBuilder()
     .setTitle("AutoLike")
     .setDescription("Documentation for REST API")
