@@ -3,8 +3,10 @@ import { CommentsService } from './comments.service';
 import { CreateCommentDto, FilterCommentsQuery } from './comment.dto';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { UserDecorator } from '../decorators/user.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller()
+@ApiTags("коментарий")
+@Controller("comments")
 export class CommentsController {
   constructor(private commentsService: CommentsService) {}
 

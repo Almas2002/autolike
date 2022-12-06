@@ -117,6 +117,7 @@ export class AnnouncementService {
       .addSelect('marka.title', 'marka')
       .addSelect('city.title', 'city')
       .addSelect('body.title', 'body')
+      .addSelect('about.state', 'state')
       .addSelect('about.volume', 'volume')
       .addSelect('COUNT(images.id)', 'countImages')
       .addSelect('transmission.title', 'transmission')
