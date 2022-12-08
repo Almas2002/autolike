@@ -11,6 +11,7 @@ import { LikeModule } from './like/like.module';
 import { RegionModule } from './region/region.module';
 import { SpareModule } from './spares/spare.module';
 import { BoatModule } from './boat/boat.module';
+import { CommentsModule } from './comments/comments.module';
 require('dotenv').config()
 
 @Module({
@@ -25,7 +26,7 @@ require('dotenv').config()
     // url: process.env.DATABASE_URL,
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
-  }),UserModule,AuthModule,RoleModule,ModelModule,AnnouncementModule,LikeModule,RegionModule,SpareModule,
+  }),UserModule,AuthModule,RoleModule,ModelModule,AnnouncementModule,LikeModule,RegionModule,SpareModule,CommentsModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',

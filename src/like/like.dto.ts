@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { TypeofEntityEnum } from '../file/file.service';
 
 export class CreateLikeCarDto{
+  @ApiProperty()
   @IsInt()
   @IsNotEmpty()
   announcementId:number

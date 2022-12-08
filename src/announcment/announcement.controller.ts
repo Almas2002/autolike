@@ -1,4 +1,15 @@
-import { Body, Controller, Get, Post, Query, Req, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Req,
+  UploadedFiles,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AnnouncementService } from './announcement.service';
 import { CreateAnnouncementDto, FilterAnnouncementQuery } from './announcement.dto';
 import { AuthGuard } from '../auth/guard/auth.guard';
@@ -48,6 +59,11 @@ export class AnnouncementController {
   @Get()
   list(@Query()query: FilterAnnouncementQuery, @Req() req) {
     return this.announcementService.list(query, req.user?.id);
+  }
+
+  @Get(":id")
+  getOne(@Param('id')id:number){
+    return this.announcementService.finOneById(id)
   }
   @ApiQuery({ name: 'yearFrom', example: 10, required: false })
   @ApiQuery({ name: 'yearTo', example: 10, required: false })

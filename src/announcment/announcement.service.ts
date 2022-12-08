@@ -87,10 +87,18 @@ export class AnnouncementService {
   }
 
   async finOneById(id: number) {
-    return this.announcementRepository.findOne({
+     const query = this.announcementRepository.createQueryBuilder("announcement")
+       .select("COUNT(comments.id)","commentsCount")
+       .addSelect("COUNT(likes.id)","likesCount")
+       .leftJoin("announcement.likes","likes")
+       .leftJoin("announcement.comments","comments")
+       .andWhere("announcement.id = :id",{id})
+     const count = await query.getRawMany()
+     const a = await this.announcementRepository.findOne({
       where: { id },
-      relations: ['about', 'avatar', 'images', 'author', 'author.user'],
+      relations: ['about', 'images', 'author', 'author.user','marka','city','body','model'],
     });
+     return {a,count:count[0]}
   }
 
   async list(dto: FilterAnnouncementQuery, userId: number) {
@@ -100,6 +108,7 @@ export class AnnouncementService {
     if (userId) {
       profile = await this.profileService.getProfileByUserId(userId);
     }
+
     const limit = dto?.limit || 10;
     const page = dto?.page || 1;
     const offset = page * limit - limit;
