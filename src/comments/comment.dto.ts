@@ -5,12 +5,10 @@ import { TypeofEntityEnum } from '../file/file.service';
 
 export class CreateCommentDto {
   @ApiProperty({ description: 'id коментарий на который хотите ответить', example: '1', required: false })
-  @IsInt()
-  @IsEmpty()
   parentCommentId: number;
   @ApiProperty({ description: 'id обьявление', example: '1', required: false })
   @IsInt()
-  @IsEmpty()
+  @IsNotEmpty()
   announcementId: number;
   @ApiProperty({ description: 'текст коментарий ', example: 'ахуенная тачка' })
   @IsString()

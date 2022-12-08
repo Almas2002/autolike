@@ -7,6 +7,7 @@ import { ProfileService } from '../profile/profile.service';
 import { CommentsNotFoundException } from './comments.exception';
 import { ProfileNotFoundException } from '../profile/profile.exception';
 import { TypeofEntityEnum } from '../file/file.service';
+import { groupBy } from 'rxjs';
 
 @Injectable()
 export class CommentsService {
@@ -42,13 +43,16 @@ export class CommentsService {
     const page = dto?.page || 1;
     const offset = page * limit - limit;
     const query = await this.commentsRepository.createQueryBuilder('comment')
-      .select('comment.id')
-      .addSelect('comment.text')
+      .select('comment.id',"id")
+      .addSelect('comment.text',"text")
       .addSelect('COUNT(subComments.id)', 'subCount')
-      .leftJoin('comment.subComments', 'subComments');
+      .leftJoin('comment.subComments', 'subComments')
+      .groupBy("comment.id")
 
     if (dto?.parentId) {
       query.andWhere('comment.parentCommentId = :parentId', { parentId: dto.parentId });
+    }else {
+      query.andWhere("comment.parentCommentId IS NULL")
     }
     if(dto?.carId && !dto.shapeId && !dto.motoId){
       query.andWhere('comment.carId = :carId',{carId:dto.carId})
