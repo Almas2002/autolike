@@ -5,7 +5,7 @@ services:
     container_name: api
     build:
       context: .
-    command: npm run start
+    command: node --max_old_space_size=256 dist/src/main.js
     restart: always
     ports:
       - "3000:3000"
