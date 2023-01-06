@@ -11,6 +11,12 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
   webserver:
     image: nginx:stable-alpine
     ports:
