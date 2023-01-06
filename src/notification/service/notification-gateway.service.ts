@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import {NotificationService} from './notification.service';
 import {ChatGateway} from '../chat.gateway';
 import {Notification, NotificationType} from "../notification.entity";
@@ -11,8 +11,9 @@ import { ConnectedUserService } from '../../socket/socket.service';
 
 @Injectable()
 export class NotificationGatewayService {
-  constructor(private notificationService: NotificationService, private notificationGateway: ChatGateway,
-              private connectedUserService: ConnectedUserService,private push:PushNotificationService) {
+  constructor(private notificationService: NotificationService,
+              private connectedUserService: ConnectedUserService,private push:PushNotificationService,@Inject(forwardRef(() => ChatGateway))
+              private notificationGateway: ChatGateway) {
 
   }
 
