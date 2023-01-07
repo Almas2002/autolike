@@ -21,6 +21,8 @@ services:
       DO_SPACE_SECRET_KEY: ${DO_SPACE_SECRET_KEY}
       DO_SPACE_ENDPOINT: ${DO_SPACE_ENDPOINT}
       DO_SPACE_BUCKET: ${DO_SPACE_BUCKET}
+      JWT_SECRET:  ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
   webserver:
     image: nginx:stable-alpine
     ports:

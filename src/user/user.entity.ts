@@ -33,7 +33,6 @@ export class User {
   private async handleAfterInsert() {
     const profile = new Profile();
     profile.user = this;
-    console.log(this);
     await getConnection().manager.save(Profile);
   }
 }
