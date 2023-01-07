@@ -239,7 +239,7 @@ export class AnnouncementService {
     }
     query.limit(limit);
     query.offset(offset);
-    const data = await query.getRawMany();
+    const data = await query.getMany();
     const count = await query.getCount();
     return { data, count };
   }

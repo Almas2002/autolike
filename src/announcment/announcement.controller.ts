@@ -66,7 +66,7 @@ export class AnnouncementController {
     return this.announcementService.list(query, req.user?.id);
   }
 
-  @Get(':id')
+  @Get('one/:id')
   getOne(@Param('id')id: number) {
     return this.announcementService.finOneById(id);
   }
