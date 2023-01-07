@@ -60,4 +60,8 @@ export class ModelService {
     const res = await query.getManyAndCount();
     return { data: res[0], count: res[1] };
   }
+
+  async remove (id:number){
+    await this.modelService.delete({id})
+  }
 }

@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Post, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UploadedFile,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
 import { GenerationService } from '../service/generation.service';
 import { CreateGenerationDto, CreateTransmissionDto } from '../dto/generation.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -11,34 +21,39 @@ import { ApiImplicitFile } from '@nestjs/swagger/dist/decorators/api-implicit-fi
 export class GenerationController {
   constructor(private generationService: GenerationService) {
   }
-  @ApiResponse({status:201,schema:{
-      oneOf:[
+
+  @ApiResponse({
+    status: 201, schema: {
+      oneOf: [
         {
-          properties:{
-            id:{
-              type:'number',
-              example:1,
-            }
-          }
-        }
-      ]
-    }})
-  @ApiResponse({status:404,schema:{
-      oneOf:[
-        {
-          properties:{
-            status:{
-              type:'number',
-              example:404,
+          properties: {
+            id: {
+              type: 'number',
+              example: 1,
             },
-            message:{
-              type:'string',
-              example:'такой модель не существует',
-            }
-          }
-        }
-      ]
-  }})
+          },
+        },
+      ],
+    },
+  })
+  @ApiResponse({
+    status: 404, schema: {
+      oneOf: [
+        {
+          properties: {
+            status: {
+              type: 'number',
+              example: 404,
+            },
+            message: {
+              type: 'string',
+              example: 'такой модель не существует',
+            },
+          },
+        },
+      ],
+    },
+  })
   @ApiResponse({
     status: 422, schema: {
       oneOf: [
@@ -73,41 +88,52 @@ export class GenerationController {
       ],
     },
   })
-  @ApiImplicitFile({ name: 'file', description: 'аватар для поколение',required:true})
+  @ApiImplicitFile({ name: 'file', description: 'аватар для поколение', required: true })
   @ApiOperation({ summary: 'сознание покаление (админ)' })
   @UseInterceptors(FileInterceptor('file'))
   @Post()
-  create(@Body()dto: CreateGenerationDto,@UploadedFile('file') file) {
-    return this.generationService.create(dto,file);
+  create(@Body()dto: CreateGenerationDto, @UploadedFile('file') file) {
+    return this.generationService.create(dto, file);
   }
-  @ApiResponse({status:400,schema:{
-      oneOf:[
+
+  @ApiResponse({
+    status: 400, schema: {
+      oneOf: [
         {
-          properties:{
-            status:{
-              type:'number',
-              example:400,
+          properties: {
+            status: {
+              type: 'number',
+              example: 400,
             },
-            message:{
-              type:'string',
-              example:'id моделя не указан в параметрах',
-            }
-          }
-        }
-      ]
-    }})
-  @ApiResponse({status:200,type:[Generation]})
+            message: {
+              type: 'string',
+              example: 'id моделя не указан в параметрах',
+            },
+          },
+        },
+      ],
+    },
+  })
+  @ApiResponse({ status: 200, type: [Generation] })
   @ApiOperation({ summary: 'массив поколений по моделям' })
   @Get(':modelId')
   list(@Param('modelId')id: string) {
     return this.generationService.list(+id);
   }
+
   @Post('transmission')
-  async createTransMission(@Body()dto:CreateTransmissionDto){
-    return this.generationService.createTransmission(dto)
+  async createTransMission(@Body()dto: CreateTransmissionDto) {
+    return this.generationService.createTransmission(dto);
   }
+
   @Get('transmission')
-  async getLIst(){
-    return this.generationService.getList()
+  async getLIst() {
+    return this.generationService.getList();
+  }
+  @ApiResponse({ status: 200 })
+  @ApiOperation({ summary: 'delete generation' })
+  @Delete(":id")
+  removeGeneration(@Param('id')id:number){
+    return this.generationService.remove(id)
   }
 }

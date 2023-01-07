@@ -12,12 +12,12 @@ export class Like {
   id: number;
   @ManyToOne(() => Profile, profile => profile.myLikes)
   profile: Profile;
-  @ManyToOne(() => Car, announcement => announcement.likes)
+  @ManyToOne(() => Car, announcement => announcement.likes,{ onDelete: 'CASCADE' })
   car: Car;
   @ManyToOne(() => Spare, spare => spare.likes, { onDelete: 'CASCADE' })
   spare: Spare;
 
-  @OneToOne(() => Notification, notification => notification.like)
+  @OneToOne(() => Notification, notification => notification.like,{ onDelete: 'CASCADE' })
   notification: Notification;
 
 

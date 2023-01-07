@@ -1,8 +1,13 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Car } from './entities/car/car.entity';
+import { Car, Status } from './entities/car/car.entity';
 import { Repository } from 'typeorm';
 import { About, StatementEnum } from './entities/car/car-about.entity';
-import { CreateAnnouncementDto, FilterAnnouncementQuery } from './announcement.dto';
+import {
+  CreateAnnouncementDto,
+  FilterAnnouncementQuery,
+  FilterAnnouncementQueryAdmins,
+  UpdateCarStatusDto,
+} from './announcement.dto';
 import { ProfileService } from '../profile/profile.service';
 import { ProfileNotFoundException } from '../profile/profile.exception';
 import { Images } from './entities/images.entity';
@@ -12,6 +17,7 @@ import { ImageNotFoundException } from './exception/image.exception';
 import { GeneralModelService } from '../model/service/general-model.service';
 import { HttpException } from '@nestjs/common';
 import { RegionService } from '../region/region.service';
+import { of } from 'rxjs';
 
 
 export class AnnouncementService {
@@ -87,18 +93,18 @@ export class AnnouncementService {
   }
 
   async finOneById(id: number) {
-     const query = this.announcementRepository.createQueryBuilder("announcement")
-       .select("COUNT(comments.id)","commentsCount")
-       .addSelect("COUNT(likes.id)","likesCount")
-       .leftJoin("announcement.likes","likes")
-       .leftJoin("announcement.comments","comments")
-       .andWhere("announcement.id = :id",{id})
-     const count = await query.getRawMany()
-     const a = await this.announcementRepository.findOne({
+    const query = this.announcementRepository.createQueryBuilder('announcement')
+      .select('COUNT(comments.id)', 'commentsCount')
+      .addSelect('COUNT(likes.id)', 'likesCount')
+      .leftJoin('announcement.likes', 'likes')
+      .leftJoin('announcement.comments', 'comments')
+      .andWhere('announcement.id = :id', { id });
+    const count = await query.getRawMany();
+    const a = await this.announcementRepository.findOne({
       where: { id },
-      relations: ['about', 'images', 'author', 'author.user','marka','city','body','model'],
+      relations: ['about', 'images', 'author', 'author.user', 'marka', 'city', 'body', 'model'],
     });
-     return {a,count:count[0]}
+    return { a, count: count[0] };
   }
 
   async list(dto: FilterAnnouncementQuery, userId: number) {
@@ -141,6 +147,7 @@ export class AnnouncementService {
       .leftJoin('announcement.body', 'body')
       .leftJoin('likes.profile', 'profile', `likes.profileId = ${profile.id}`)
       .addSelect('COUNT(profile) as profileLIke')
+      .andWhere('announcement.status = :status', { status: 'accepted' })
       .orderBy('announcement.createdAt', 'DESC')
       .groupBy('model.id').addGroupBy('avatar.id').addGroupBy('about.id')
       .addGroupBy('marka.id').addGroupBy('price').addGroupBy('announcement.id')
@@ -217,6 +224,28 @@ export class AnnouncementService {
     const data = await query.getRawMany();
     const count = await query.getCount();
     return { data, count };
+  }
+
+  async listAdmins(filter: FilterAnnouncementQueryAdmins) {
+    const query = await this.announcementRepository.createQueryBuilder('announcement');
+    const limit = filter?.limit || 10;
+    const page = filter?.page || 1;
+    const offset = page * limit - limit;
+    if (filter?.profileId) {
+      query.andWhere('announcement.authorId = :authorId', { authorId: filter.profileId });
+    }
+    if (filter?.status) {
+      query.andWhere('announcement.status = :status', { status: filter.status });
+    }
+    query.limit(limit);
+    query.offset(offset);
+    const data = await query.getRawMany();
+    const count = await query.getCount();
+    return { data, count };
+  }
+
+  async changeStatus(id: number, dto:UpdateCarStatusDto) {
+     await this.announcementRepository.update({ id }, { status:dto.status });
   }
 
 }

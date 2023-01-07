@@ -47,5 +47,13 @@ export class BodyService {
     return this.motoTypeRepository.find();
   }
 
+  async removeTypeMachine(id:number){
+    await this.bodyPrivate.delete({id})
+  }
+  async removeTypeMoto(id:number){
+    await this.motoTypeRepository.delete({id})
+  }
+
+
 }
 

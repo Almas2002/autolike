@@ -7,6 +7,6 @@ export class Region {
   id:number;
   @Column({unique:true})
   title:string;
-  @OneToMany(()=>City,city=>city)
+  @OneToMany(()=>City,city=>city.region)
   cities:City[]
 }

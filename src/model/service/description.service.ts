@@ -25,11 +25,19 @@ export class DescriptionService {
     if (candidate) {
       throw new HttpException('такой тэг уже существует!', HttpStatus.CONFLICT);
     }
-    const tag = await this.tagRepository.save({ title: dto.title ,description:{id:dto.descriptionId} });
+    const tag = await this.tagRepository.save({ title: dto.title, description: { id: dto.descriptionId } });
     return { id: tag.id };
   }
 
-  async getDescriptionList(){
-    return await this.descriptionRepository.find({relations:["tags"]})
+  async getDescriptionList() {
+    return await this.descriptionRepository.find({ relations: ['tags'] });
+  }
+
+  async removeTag(id: number) {
+    await this.tagRepository.delete({ id });
+  }
+
+  async removeDescription(id: number) {
+    await this.descriptionRepository.delete({ id });
   }
 }

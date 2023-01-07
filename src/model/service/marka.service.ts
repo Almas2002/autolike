@@ -40,6 +40,9 @@ export class MarkaService {
   async findOneById(id:number){
     return this.markaRepository.findOne({where:{id}})
   }
+  async remove(id:number){
+    await this.markaRepository.delete({id})
+  }
 
 
 }

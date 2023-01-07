@@ -49,9 +49,9 @@ export class Car {
   body: BodyType;
   @ManyToOne(() => City, city => city, { onDelete: 'CASCADE' })
   city: City;
-  @ManyToOne(() => Transmission, object => object.cars,)
+  @ManyToOne(() => Transmission, object => object.cars,{ onDelete: 'CASCADE' })
   transmission: Transmission;
-  @OneToMany(() => Images, images => images.car)
+  @OneToMany(() => Images, images => images.car,{ onDelete: 'CASCADE' })
   images: Images[];
   @ManyToOne(() => Profile, profile => profile.cars, { onDelete: 'CASCADE' })
   author: Profile;
@@ -61,7 +61,7 @@ export class Car {
   @OneToOne(() => About, about => about.car)
   @JoinColumn()
   about: About;
-  @OneToMany(() => Like, like => like.car)
+  @OneToMany(() => Like, like => like.car,{ onDelete: 'CASCADE' })
   likes: Like[];
   @CreateDateColumn()
   createdAt: Date;

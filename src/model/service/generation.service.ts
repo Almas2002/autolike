@@ -55,4 +55,8 @@ export class GenerationService {
     return this.transmissionRepository.find();
   }
 
+  async remove(id:number){
+    await this.generationRepository.delete({id })
+  }
+
 }

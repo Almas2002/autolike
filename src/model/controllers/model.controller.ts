@@ -1,9 +1,8 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
 import { ModelService } from '../service/model.service';
 import { CreateModelDto, FilterModelListQuery } from '../dto/model.dto';
 import { Model } from '../entities/car/model.entity';
-import { Marka } from '../entities/car/marka.entity';
 
 @ApiTags('модель')
 @Controller('model')
@@ -72,27 +71,35 @@ export class ModelController {
   async create(@Body()dto: CreateModelDto) {
     return this.modelService.create(dto);
   }
-  @ApiResponse({status:200,schema:{
-      oneOf:[
+
+  @ApiResponse({
+    status: 200, schema: {
+      oneOf: [
         {
-          properties:{
-            count:{
-              type:'number',
-              example:100,
+          properties: {
+            count: {
+              type: 'number',
+              example: 100,
             },
-            data:{
-              type:'array',
-              example:[{
-                id:1,
-                title:"Camry"
-              }]
-            }
-          }
-        }
-      ]
-    }})
+            data: {
+              type: 'array',
+              example: [{
+                id: 1,
+                title: 'Camry',
+              }],
+            },
+          },
+        },
+      ],
+    },
+  })
   @Get()
   list(@Query()query: FilterModelListQuery): Promise<{ data: Model[], count: number }> {
     return this.modelService.list(query);
+  }
+
+  @Delete(':id')
+  remove(@Param('id')id: number) {
+    return this.modelService.remove(id);
   }
 }

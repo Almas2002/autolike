@@ -3,7 +3,7 @@ import {
   Controller,
   Get,
   Param,
-  Post,
+  Post, Put,
   Query,
   Req,
   UploadedFiles,
@@ -11,12 +11,17 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { AnnouncementService } from './announcement.service';
-import { CreateAnnouncementDto, FilterAnnouncementQuery } from './announcement.dto';
+import {
+  CreateAnnouncementDto,
+  FilterAnnouncementQuery,
+  FilterAnnouncementQueryAdmins,
+  UpdateCarStatusDto,
+} from './announcement.dto';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { UserDecorator } from '../decorators/user.decorator';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiImplicitFile } from '@nestjs/swagger/dist/decorators/api-implicit-file.decorator';
-import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DriveIUnitEnum, Wheel } from './entities/car/car-about.entity';
 import { MototehnikaService } from '../mototehnika/service/mototehnika.service';
 import { FilterMototehnikaQuery } from '../mototehnika/dto/mototehnika.dto';
@@ -61,10 +66,11 @@ export class AnnouncementController {
     return this.announcementService.list(query, req.user?.id);
   }
 
-  @Get(":id")
-  getOne(@Param('id')id:number){
-    return this.announcementService.finOneById(id)
+  @Get(':id')
+  getOne(@Param('id')id: number) {
+    return this.announcementService.finOneById(id);
   }
+
   @ApiQuery({ name: 'yearFrom', example: 10, required: false })
   @ApiQuery({ name: 'yearTo', example: 10, required: false })
   @ApiQuery({ name: 'types', example: '1,2,3', required: false })
@@ -78,5 +84,19 @@ export class AnnouncementController {
   @Get('moto')
   motoList(@Query()dto: FilterMototehnikaQuery, @Req()req) {
     return this.motoService.list(dto, req.user?.id);
+  }
+  @ApiQuery({ name: 'limit', example: 10, required: false })
+  @ApiQuery({ name: 'offset', example: 10, required: false })
+  @ApiQuery({ name: 'status', example: "accepted", required: false })
+  @ApiQuery({ name: 'profileId', example: 10, required: false })
+  @Get('admin')
+  carListForAdmins(@Query()dto: FilterAnnouncementQueryAdmins) {
+    return this.announcementService.listAdmins(dto);
+  }
+
+  @ApiResponse({status:200})
+  @Put('update-status/:id')
+  carStatusUpdate(@Param('id')id:number,@Body()dto:UpdateCarStatusDto) {
+    return this.announcementService.changeStatus(id,dto);
   }
 }

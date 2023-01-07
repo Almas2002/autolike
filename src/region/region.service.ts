@@ -26,7 +26,7 @@ export class RegionService {
   }
 
   async getRegions(): Promise<Region[]> {
-    return this.regionRepository.find({ relations: ['city'] });
+    return this.regionRepository.find({ relations: ['cities'] });
   }
 
   async createCity(dto: CreateCityDto): Promise<{ id: number }> {

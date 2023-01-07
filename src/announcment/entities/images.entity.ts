@@ -12,26 +12,26 @@ export class Images {
   @Column({ default: '' })
   image: string;
 
-  @ManyToOne(() => Car, object => object.images)
+  @ManyToOne(() => Car, object => object.images,{ onDelete: 'CASCADE' })
   car: Car;
-  @OneToOne(() => Car, object => object.avatar)
+  @OneToOne(() => Car, object => object.avatar,{ onDelete: 'CASCADE' })
   carAvatar: Car;
 
-  @ManyToOne(() => Spare, object => object.images)
+  @ManyToOne(() => Spare, object => object.images,{ onDelete: 'CASCADE' })
   spare: Spare;
 
-  @OneToOne(() => Spare, object => object.avatar)
+  @OneToOne(() => Spare, object => object.avatar,{ onDelete: 'CASCADE' })
   spareAvatar: Spare;
 
-  @ManyToOne(() => Mototehnics, moto => moto.images)
+  @ManyToOne(() => Mototehnics, moto => moto.images,{ onDelete: 'CASCADE' })
   mototechnics: Mototehnics;
 
-  @OneToOne(() => Mototehnics, moto => moto.avatar)
+  @OneToOne(() => Mototehnics, moto => moto.avatar,{ onDelete: 'CASCADE' })
   mototechnicsAvatar: Mototehnics;
 
-  @ManyToOne(() => Boat, boat => boat.images)
+  @ManyToOne(() => Boat, boat => boat.images,{ onDelete: 'CASCADE' })
   boat: Boat;
 
-  @OneToOne(() => Boat, boat => boat.avatar)
+  @OneToOne(() => Boat, boat => boat.avatar,{ onDelete: 'CASCADE' })
   boatAvatar: Boat;
 }

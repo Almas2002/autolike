@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BodyService } from '../service/body.service';
 import { CreateBodyTypeDto } from '../dto/body-type.dto';
@@ -135,6 +135,18 @@ export class BodyTypeController {
   @Post('moto')
   getList(): Promise<TypeOfMototechnics[]> {
     return this.bodyService.getMotoTypesList();
+  }
+  @ApiOperation({ summary: 'удалить тип машины' })
+  @ApiResponse({ status: 200 })
+  @Delete("car/:id")
+  removeCarType(@Param('id')id:number){
+    return this.bodyService.removeTypeMachine(id)
+  }
+  @ApiOperation({ summary: 'удалить тип матацикла' })
+  @ApiResponse({ status: 200 })
+  @Delete("moto/:id")
+  removeMotoType(@Param('id')id:number){
+    return this.bodyService.removeTypeMoto(id)
   }
 
 
