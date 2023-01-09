@@ -7,7 +7,7 @@ import { FileService, TypeofEntityEnum } from '../../file/file.service';
 import { ProfileService } from '../../profile/profile.service';
 import { ProfileNotFoundException } from '../../profile/profile.exception';
 import { TypeMototehnikaService } from './type-mototehnika.service';
-import { Images } from '../../announcment/entities/images.entity';
+import { Images } from '../../file/images.entity';
 import { ImageNotFoundException } from '../../announcment/exception/image.exception';
 import { MototehniceNotFoundException } from '../exceptions/mototehnice.exception';
 

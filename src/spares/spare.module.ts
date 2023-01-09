@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Spare } from './spare.entity';
 import { RegionModule } from '../region/region.module';
 import { ModelModule } from '../model/model.module';
-import { Images } from '../announcment/entities/images.entity';
+import { Images } from '../file/images.entity';
 import { FileModule } from '../file/file.module';
 import { ProfileModule } from '../profile/profile.module';
 

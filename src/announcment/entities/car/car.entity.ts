@@ -8,7 +8,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Images } from '../images.entity';
+import { Images } from '../../../file/images.entity';
 import { Like } from '../../../like/like.entity';
 import { About } from './car-about.entity';
 import { Profile } from '../../../profile/profile.entity';

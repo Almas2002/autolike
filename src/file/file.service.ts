@@ -3,14 +3,15 @@ import { v4 } from 'uuid';
 
 import * as AWS from 'aws-sdk';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Images } from '../announcment/entities/images.entity';
+import { Images } from './images.entity';
 import { Repository } from 'typeorm';
 
 export enum TypeofEntityEnum {
   ANNOUNCEMENT = 'ANNOUNCEMENT',
   SPARE = 'SPARE',
   MOTOTECHNICS = 'MOTOTECHNICS',
-  BOAT = 'BOAT'
+  BOAT = 'BOAT',
+  BANNER = 'BANNER'
 }
 
 @Injectable()
@@ -48,6 +49,9 @@ export class FileService {
     } else if (type == TypeofEntityEnum.MOTOTECHNICS) {
       object['mototechnics'] = data;
     }
+    else if (type == TypeofEntityEnum.BANNER) {
+      object['banner'] = data;
+    }
     else if (type == TypeofEntityEnum.BOAT) {
       object['boat'] = data;
     }
@@ -65,6 +69,9 @@ export class FileService {
 
   async findOneImage(id: number): Promise<Images> {
     return this.imageRepository.findOne({ where: { id } });
+  }
+  async createImage(fileName:string){
+    return this.imageRepository.save({image:fileName})
   }
 
   private async s3_upload(file, bucket, name, mimeType) {

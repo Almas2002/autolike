@@ -1,7 +1,7 @@
 import { BoatType } from './boat-type.entity';
 import { City } from '../region/entity/city.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Images } from '../announcment/entities/images.entity';
+import { Images } from '../file/images.entity';
 import { Profile } from '../profile/profile.entity';
 import { Comments } from '../comments/comments.entity';
 import { Like } from '../like/like.entity';

@@ -14,7 +14,7 @@ import { Profile } from '../profile/profile.entity';
 import { Like } from '../like/like.entity';
 import { Comments } from '../comments/comments.entity';
 import { City } from '../region/entity/city.entity';
-import { Images } from '../announcment/entities/images.entity';
+import { Images } from '../file/images.entity';
 
 
 export enum StateMototechnicsEnum {

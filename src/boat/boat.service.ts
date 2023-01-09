@@ -10,7 +10,7 @@ import { TypeNotFoundException } from '../mototehnika/exceptions/type.exception'
 import { City } from '../region/entity/city.entity';
 import { CityNotFoundException } from '../region/exception/city.exception';
 import { FileService, TypeofEntityEnum } from '../file/file.service';
-import { Images } from '../announcment/entities/images.entity';
+import { Images } from '../file/images.entity';
 import { ImageNotFoundException } from '../announcment/exception/image.exception';
 import { BoatNotFoundException } from './boat.exception';
 

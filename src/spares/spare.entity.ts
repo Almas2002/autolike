@@ -15,7 +15,7 @@ import {
 } from 'typeorm';
 import { Profile } from '../profile/profile.entity';
 import { Like } from '../like/like.entity';
-import { Images } from '../announcment/entities/images.entity';
+import { Images } from '../file/images.entity';
 import { Comments } from '../comments/comments.entity';
 
 

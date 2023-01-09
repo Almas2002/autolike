@@ -10,7 +10,7 @@ import {
 } from './announcement.dto';
 import { ProfileService } from '../profile/profile.service';
 import { ProfileNotFoundException } from '../profile/profile.exception';
-import { Images } from './entities/images.entity';
+import { Images } from '../file/images.entity';
 import { FileService, TypeofEntityEnum } from '../file/file.service';
 import { AnnouncementNotFoundException } from './exception/announcement.exception';
 import { ImageNotFoundException } from './exception/image.exception';

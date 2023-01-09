@@ -1,8 +1,9 @@
-import { Car } from './car/car.entity';
+import { Car } from '../announcment/entities/car/car.entity';
 import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Spare } from '../../spares/spare.entity';
-import { Mototehnics } from '../../mototehnika/mototehnika.entity';
-import { Boat } from '../../boat/boat.entity';
+import { Spare } from '../spares/spare.entity';
+import { Mototehnics } from '../mototehnika/mototehnika.entity';
+import { Boat } from '../boat/boat.entity';
+import { Banner } from '../banner/banner.entity';
 
 @Entity()
 export class Images {
@@ -31,6 +32,9 @@ export class Images {
 
   @ManyToOne(() => Boat, boat => boat.images,{ onDelete: 'CASCADE' })
   boat: Boat;
+
+  @OneToOne(()=>Banner,banner=>banner.image)
+  banner:Banner
 
   @OneToOne(() => Boat, boat => boat.avatar,{ onDelete: 'CASCADE' })
   boatAvatar: Boat;

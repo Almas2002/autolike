@@ -15,7 +15,9 @@ import { CommentsModule } from './comments/comments.module';
 import { NotificationModule } from './notification/notification.module';
 import { ChatModule } from './chat/chat.module';
 import { SocketModule } from './socket/socket.module';
-require('dotenv').config()
+import { BannerModule } from './banner/banner.module';
+
+require('dotenv').config();
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -29,7 +31,7 @@ require('dotenv').config()
     // url: process.env.DATABASE_URL,
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
-  }),UserModule,AuthModule,RoleModule,ModelModule,AnnouncementModule,LikeModule,RegionModule,SpareModule,CommentsModule,NotificationModule,ChatModule,
+  }), UserModule, AuthModule, RoleModule, ModelModule, AnnouncementModule, LikeModule, RegionModule, SpareModule, CommentsModule, NotificationModule, ChatModule, BannerModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',

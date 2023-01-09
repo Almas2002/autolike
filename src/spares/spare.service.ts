@@ -6,7 +6,7 @@ import { GeneralModelService } from '../model/service/general-model.service';
 import { RegionService } from '../region/region.service';
 import { ProfileService } from '../profile/profile.service';
 import { FileService, TypeofEntityEnum } from '../file/file.service';
-import { Images } from '../announcment/entities/images.entity';
+import { Images } from '../file/images.entity';
 import { ImageNotFoundException } from '../announcment/exception/image.exception';
 import { ShapeNotFoundException } from './shape.exception';
 
