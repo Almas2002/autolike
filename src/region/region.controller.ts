@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { RegionService } from './region.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { CreateRegionDto } from './dto/region.dto';
 import { CreateCityDto } from './dto/city.dto';
 import { Region } from './entity/region.entity';
@@ -24,5 +24,16 @@ export class RegionController {
   @Get()
   getListRegionsWithCity(): Promise<Region[]> {
     return this.regionService.getRegions();
+  }
+
+  @ApiOperation({ summary: 'удаление региона' })
+  @Delete('/:id')
+  deleteRegion(@Param('id')id: number) {
+    return this.regionService.deleteRegion(id);
+  }
+  @ApiOperation({ summary: 'удаление города' })
+  @Delete('/city/:id')
+  deleteCity(@Param('id')id: number) {
+    return this.regionService.deleteCity(id);
   }
 }

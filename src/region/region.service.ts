@@ -24,7 +24,12 @@ export class RegionService {
   private async getRegionByValue(title: string): Promise<Region> {
     return this.regionRepository.findOne({ where: { title } });
   }
-
+  async deleteRegion(id:number){
+    await this.regionRepository.delete({id})
+  }
+  async deleteCity(id:number){
+    await this.cityRepository.delete({id})
+  }
   async getRegions(): Promise<Region[]> {
     return this.regionRepository.find({ relations: ['cities'] });
   }

@@ -60,7 +60,7 @@ export class Mototehnics {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne(() => City, city => city)
+  @ManyToOne(() => City, city => city,{onDelete:"SET NULL"})
   city: City;
   @Column({ enum: Status, default: Status.NEW })
   status: Status;

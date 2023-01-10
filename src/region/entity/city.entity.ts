@@ -11,14 +11,14 @@ export class City {
   id: number;
   @Column({ unique: true })
   title: string;
-  @ManyToOne(() => Region, region => region.cities)
+  @ManyToOne(() => Region, region => region.cities, { onDelete: 'CASCADE' })
   region: Region;
-  @OneToMany(() => Car, announcement => announcement.city)
+  @OneToMany(() => Car, announcement => announcement.city,{onDelete:"SET NULL"})
   cars: Car[];
 
-  @OneToMany(()=>Mototehnics,moto=>moto.city)
-  mototehnics:Mototehnics[]
+  @OneToMany(() => Mototehnics, moto => moto.city,{onDelete:"SET NULL"})
+  mototehnics: Mototehnics[];
 
-  @OneToMany(()=>Boat,boat=>boat.city)
-  boats:Boat[]
+  @OneToMany(() => Boat, boat => boat.city,{onDelete:"SET NULL"})
+  boats: Boat[];
 }

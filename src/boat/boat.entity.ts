@@ -18,7 +18,7 @@ export class Boat {
   author: Profile;
   @ManyToOne(() => BoatType, type => type.boats)
   type: BoatType;
-  @ManyToOne(() => City, city => city.boats)
+  @ManyToOne(() => City, city => city.boats,{onDelete:"SET NULL"})
   city: City;
   @OneToOne(() => Images, image => image.boatAvatar)
   @JoinColumn()

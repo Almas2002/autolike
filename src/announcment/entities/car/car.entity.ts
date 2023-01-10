@@ -47,7 +47,7 @@ export class Car {
   generation: Generation;
   @ManyToOne(() => BodyType, object => object.cars, { onDelete: 'CASCADE' })
   body: BodyType;
-  @ManyToOne(() => City, city => city, { onDelete: 'CASCADE' })
+  @ManyToOne(() => City, city => city,{onDelete:"SET NULL"})
   city: City;
   @ManyToOne(() => Transmission, object => object.cars,{ onDelete: 'CASCADE' })
   transmission: Transmission;
