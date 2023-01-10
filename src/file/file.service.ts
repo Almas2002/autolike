@@ -32,7 +32,7 @@ export class FileService {
       const { originalname } = file;
       const format = originalname.split('.');
       fileName = fileName + '.' + format[format.length - 1];
-     // await this.s3_upload(file.buffer, this.bucket, fileName, file.mimetype);
+      await this.s3_upload(file.buffer, this.bucket, fileName, file.mimetype)
       return fileName;
     } catch (e) {
       console.log(e);
